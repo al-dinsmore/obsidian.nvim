@@ -6,6 +6,7 @@ local util = require "obsidian.util"
 ---
 ---@param client obsidian.Client
 return function(client, data)
+  vim.print("running extract_note.lua")
   local viz = util.get_visual_selection()
   if not viz then
     log.err "ObsidianExtractNote must be called with visual selection"
