@@ -422,11 +422,16 @@ util.string_count = function(s, pattern)
 end
 
 ---Replace up to `n` occurrences of `what` in `s` with `with`.
----@return string|nil
----@return string|nil
+---@return integer|nil    -- row
+---@return integer|nil    -- start_col
+---@return integer|nil    -- end_col
+---@return string|nil     -- link_id
+---@return string|nil     -- alias_id
 util.get_cursor_link = function()
   local line = vim.api.nvim_get_current_line()
-  local cursor_col = vim.api.nvim_win_get_cursor(0)[2] + 1
+  local cursor = vim.api.nvim_win_get_cursor(0)
+  local row = vim.api.nvim_win_get_cursor(0)[1]
+  local cursor_col = vim.api.nvim_win_get_cursor(0)[2]
   vim.print("cursor_col: " .. cursor_col)
 
   -- Find the last [[ before the cursor
@@ -439,13 +444,13 @@ util.get_cursor_link = function()
   end
 
   if not start_idx then
-    return nil, nil
+    return nil, nil, nil, nil, nil
   end
 
   -- Find the next ]] after the start
   local end_idx = string.find(line, "]]", start_idx, true)
   if not end_idx then
-    return nil, nil
+    return nil, nil, nil, nil, nil
   end
 
   -- Extract the link contents
@@ -457,10 +462,10 @@ util.get_cursor_link = function()
   if sep_index then
     local id = content:sub(1, sep_index - 1)
     local alias = content:sub(sep_index + 1)
-    return id, alias
+    return row, start_idx, end_idx, id, alias
   else
     -- If no alias, return content as id and alias
-    return nil, content
+    return row, start_idx, end_idx, nil, content
   end
 end
 
