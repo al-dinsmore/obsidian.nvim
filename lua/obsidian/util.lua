@@ -427,6 +427,7 @@ end
 util.get_cursor_link = function()
   vim.print "get_cursor_link function begin"
   local line = vim.api.nvim_get_current_line()
+  vim.print(line)
   local cursor_col = vim.api.nvim_win_get_cursor(0)[2] + 1
 
   -- Find the last [[ before the cursor
@@ -450,7 +451,6 @@ util.get_cursor_link = function()
 
   -- Extract the link contents
   local content = line:sub(start_idx + 2, end_idx - 1)
-  vim.print(content)
 
   -- Split by the first |
   local sep_index = string.find(content, "|", 1, true)
