@@ -11,7 +11,13 @@ return function(client, data)
     vim.print("link_id: " .. link_id)
   end
   if row and start_col and end_col and content then
-    local title = util.strip_whitespace(content)
+    ---@type string|?
+    local title
+    if data.args ~= nil and string.len(data.args) > 0 then
+      title = util.strip_whitespace(data.args)
+    else
+      title = util.strip_whitespace(content)
+    end
     --vim.print("title: " .. title)
     --vim.print("row: " .. row)
     --vim.print("start_col: " .. start_col)
