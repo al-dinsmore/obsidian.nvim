@@ -12,7 +12,10 @@ return function(client, data)
   end
   if row and start_col and end_col and content then
     local title = util.strip_whitespace(content)
-    vim.print("title" .. title)
+    vim.print("title: " .. title)
+    vim.print("row: " .. row)
+    vim.print("start_col: " .. start_col)
+    vim.print("end_col: " .. end_col)
     -- create the new note.
     local note = client:create_note { title = title }
 
