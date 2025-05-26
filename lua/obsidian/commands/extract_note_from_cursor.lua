@@ -13,17 +13,16 @@ return function(client, data)
   if row and start_col and end_col and content then
     ---@type string|?
     local title
+    local note
     if data.args ~= nil and string.len(data.args) > 0 then
-      title = util.strip_whitespace(data.args)
+      title = util.strip_whitespace(data.args[0])
+      -- use note from args
+      note = util.strip_whitespace(data.args[1])
     else
       title = util.strip_whitespace(content)
+      -- create the new note.
+      note = client:create_note { title = title }
     end
-    --vim.print("title: " .. title)
-    --vim.print("row: " .. row)
-    --vim.print("start_col: " .. start_col)
-    --vim.print("end_col: " .. end_col)
-    -- create the new note.
-    local note = client:create_note { title = title }
 
     -- replace selection with link to new note
     local link = client:format_link(note)
