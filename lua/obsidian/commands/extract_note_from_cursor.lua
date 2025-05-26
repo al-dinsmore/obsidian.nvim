@@ -15,7 +15,8 @@ return function(client, data)
     local title
     local note
     if data.args ~= nil and string.len(data.args) > 0 then
-      title = util.strip_whitespace(data.args[0])
+      title = util.strip_whitespace(data.args)
+
       -- use note from args
       note = client:resolve_note(title)
     else
