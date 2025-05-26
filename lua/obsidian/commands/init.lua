@@ -24,7 +24,7 @@ local command_lookups = {
   ObsidianRename = "obsidian.commands.rename",
   ObsidianPasteImg = "obsidian.commands.paste_img",
   ObsidianExtractNote = "obsidian.commands.extract_note",
-  ObsidianExtractNoteFromCursor = "obsidian.commands.extract_from_cursor",
+  ObsidianExtractNoteFromCursor = "obsidian.commands.extract_note_from_cursor",
   ObsidianDebug = "obsidian.commands.debug",
   ObsidianTOC = "obsidian.commands.toc",
 }
