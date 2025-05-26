@@ -7,7 +7,12 @@ local util = require "obsidian.util"
 ---@param client obsidian.Client
 return function(client, data)
   local link_id, link_alias = util.get_cursor_link()
-  vim.print("link_id: " .. link_id .. ", link_alias: " .. link_alias)
+  if link_id then
+    vim.print("link_id: " .. link_id)
+  end
+  if link_alias then
+    vim.print("link_alias: " .. link_alias)
+  end
   local viz = util.get_visual_selection()
   if not viz then
     log.err "ObsidianExtractNote must be called with visual selection"
