@@ -28,18 +28,4 @@ return function(client, data)
     client:open_note(note, { sync = true })
     --vim.api.nvim_buf_set_lines(0, -1, -1, false, string[content])
   end
-
-  -----@type string|?
-  --local title
-  --if data.args ~= nil and string.len(data.args) > 0 then
-  --  title = util.strip_whitespace(data.args)
-  --else
-  --  title = util.input "Enter title (optional): "
-  --  if not title then
-  --    log.warn "Aborted"
-  --    return
-  --  elseif title == "" then
-  --    title = nil
-  --  end
-  --end
 end
