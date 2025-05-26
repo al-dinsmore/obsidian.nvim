@@ -421,6 +421,47 @@ util.string_count = function(s, pattern)
   return select(2, string.gsub(s, pattern, ""))
 end
 
+---Replace up to `n` occurrences of `what` in `s` with `with`.
+---@return string|nil
+---@return string|nil
+util.get_cursor_link = function()
+  local line = vim.api.nvim_get_current_line()
+  local cursor_col = vim.api.nvim_win_get_cursor(0)[2] + 1
+
+  -- Find the last [[ before the cursor
+  local start_idx = nil
+  for i = cursor_col, 1, -1 do
+    if line:sub(i, i + 1) == "[[" then
+      start_idx = i
+      break
+    end
+  end
+
+  if not start_idx then
+    return nil, nil
+  end
+
+  -- Find the next ]] after the start
+  local end_idx = string.find(line, "]]", start_idx, true)
+  if not end_idx then
+    return nil, nil
+  end
+
+  -- Extract the link contents
+  local content = line:sub(start_idx + 2, end_idx - 1)
+
+  -- Split by the first |
+  local sep_index = string.find(content, "|", 1, true)
+  if sep_index then
+    local id = content:sub(1, sep_index - 1)
+    local alias = content:sub(sep_index + 1)
+    return id, alias
+  else
+    -- If no alias, return content as id and alias
+    return nil, content
+  end
+end
+
 ------------------------------------
 -- Miscellaneous helper functions --
 ------------------------------------
